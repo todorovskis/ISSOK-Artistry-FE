@@ -1,0 +1,149 @@
+<navigation></navigation>
+<div class="container mx-auto mt-4">
+  <form (ngSubmit)="onSubmit()" [formGroup]="registrationForm"
+    class="max-w-lg mx-auto bg-white shadow-lg rounded px-8 pt-6 pb-8 mb-4">
+    <h2 class="text-2xl font-bold mb-4">Registration Form</h2>
+
+    <!-- Profile Picture -->
+    <div class="mb-4">
+      <label for="profilePicture" class="block text-gray-700 font-bold mb-2">Profile Picture:</label>
+      <input formControlName="profilePicture" type="file" (change)="onProfilePictureChange($event)" accept="image/*"
+        class="block w-full border rounded py-2 px-3">
+      <div
+        [className]="isSubmitted && registrationForm.get('profilePicture')?.invalid ? 'block text-red-500' : 'hidden'">
+        Profile picture is required.
+      </div>
+    </div>
+
+    <!-- Username -->
+    <div class="mb-4">
+      <label for="username" class="block text-gray-700 font-bold mb-2">Username:</label>
+      <input type="text" id="username" formControlName="username" required class="block w-full border rounded py-2 px-3"
+        placeholder="Enter your username">
+      <div [className]="isSubmitted && registrationForm.get('username')?.invalid ? 'block text-red-500' : 'hidden'">
+        Username is required.
+      </div>
+    </div>
+
+    <!-- Password -->
+    <div class="mb-4">
+      <label for="password" class="block text-gray-700 font-bold mb-2">Password:</label>
+      <input type="password" id="password" formControlName="password" required
+        class="block w-full border rounded py-2 px-3" placeholder="Enter your password">
+      <div [className]="isSubmitted && registrationForm.get('password')?.invalid ? 'block text-red-500' : 'hidden'">
+        Password is required.
+      </div>
+    </div>
+
+    <!-- Confirm Password -->
+    <div class="mb-4">
+      <label for="confirmPassword" class="block text-gray-700 font-bold mb-2">Confirm Password:</label>
+      <input type="password" id="confirmPassword" formControlName="confirmPassword" required
+        class="block w-full border rounded py-2 px-3" placeholder="Confirm your password">
+      <div
+        [className]="isSubmitted && registrationForm.get('confirmPassword')?.invalid ? 'block text-red-500' : 'hidden'">
+        Password confirmation is required.
+      </div>
+      <div [className]="!passwordsMatch && isSubmitted? 'block text-red-500' : 'hidden'">
+        Passwords do not match.
+      </div>
+    </div>
+
+    <!-- Name -->
+    <div class="mb-4">
+      <label for="name" class="block text-gray-700 font-bold mb-2">Name:</label>
+      <input type="text" id="name" formControlName="name" required class="block w-full border rounded py-2 px-3"
+        placeholder="Enter your name">
+      <div [className]="isSubmitted && registrationForm.get('name')?.invalid ? 'block text-red-500' : 'hidden'">
+        Name is required.
+      </div>
+    </div>
+
+    <!-- Country -->
+    <div class="form-group">
+      <label for="country">Country:</label>
+      <select id="country" formControlName="country" required>
+        @for(country of countries; track country){
+        <option [value]="country.country">{{ country.country }}</option>
+        }
+      </select>
+    </div>
+    <div [className]="isSubmitted && registrationForm.get('country')?.invalid ? 'block text-red-500' : 'hidden'">
+      Country is required.
+    </div>
+
+    <!-- Categories -->
+    <div class="form-group">
+      <label>Categories:</label>
+      <div class="category-checkboxes">
+        <label class="category-checkbox">
+          @for(category of categories; track category){
+          <input type="checkbox" (change)="onChange(category.category)" [value]="category.category"
+            formControlName="categories" required> {{ category.category}}
+          }
+        </label>
+      </div>
+    </div>
+    <div [className]="isSubmitted && registrationForm.get('categories')?.invalid ? 'block text-red-500' : 'hidden'">
+      Category is required.
+    </div>
+
+    <!-- Age -->
+    <div class="mb-4">
+      <label for="age" class="block text-gray-700 font-bold mb-2">Age:</label>
+      <input type="number" id="age" formControlName="age" required class="block w-full border rounded py-2 px-3"
+        placeholder="Enter your age">
+      <div [className]="isSubmitted && registrationForm.get('age')?.invalid || registrationForm.get('age')?.errors?.min 
+      || registrationForm.get('age')?.errors?.max ? 'block text-red-500' : 'hidden'">
+        Age is missing or not in range (1-120)
+      </div>
+    </div>
+
+    <!-- Hourly Rate -->
+    <div class="mb-4">
+      <label for="hourlyRate" class="block text-gray-700 font-bold mb-2">Hourly Rate:</label>
+      <input type="number" id="hourlyRate" formControlName="hourlyRate" required
+        class="block w-full border rounded py-2 px-3" placeholder="Enter your hourly rate">
+      <div [className]="isSubmitted && registrationForm.get('hourlyRate')?.invalid 
+      || registrationForm.get('hourlyRate')?.errors?.max ? 'block text-red-500' : 'hidden'">
+        Hourly Rate missing or higher than 500USD
+      </div>
+    </div>
+
+    <!-- Summary -->
+    <div class="mb-4">
+      <label for="summary" class="block text-gray-700 font-bold mb-2">Summary:</label>
+      <textarea id="summary" formControlName="summary" required class="block w-full border rounded py-2 px-3"
+        placeholder="Enter your summary"></textarea>
+      <div [className]="isSubmitted && registrationForm.get('summary')?.invalid ? 'block text-red-500' : 'hidden'">
+        Summary is required.
+      </div>
+    </div>
+
+    <!-- Job Title -->
+    <div class="mb-4">
+      <label for="jobTitle" class="block text-gray-700 font-bold mb-2">Job Title:</label>
+      <input type="text" id="jobTitle" formControlName="jobTitle" required class="block w-full border rounded py-2 px-3"
+        placeholder="Enter your job title">
+      <div [className]="isSubmitted && registrationForm.get('jobTitle')?.invalid ? 'block text-red-500' : 'hidden'">
+        Job Title is required.
+      </div>
+    </div>
+
+    <!-- Portfolio PDF -->
+    <div class="mb-4">
+      <label for="portfolio" class="block text-gray-700 font-bold mb-2">Portfolio PDF:</label>
+      <input formControlName="portfolio" type="file" (change)="onPortfolioChange($event)" name="portfolio" accept=".pdf"
+        class="block w-full border rounded py-2 px-3">
+      <div [className]="isSubmitted && registrationForm.get('portfolio')?.invalid ? 'block text-red-500' : 'hidden'">
+        Portfolio is required.
+      </div>
+    </div>
+
+    <!-- Submit Button -->
+    <div class="mb-4">
+      <button type="submit"
+        class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Submit</button>
+    </div>
+  </form>
+</div>

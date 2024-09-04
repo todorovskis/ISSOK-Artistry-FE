@@ -1,0 +1,51 @@
+<header class="header py-0 px-52">
+    <div class="container mx-auto flex justify-between items-center">
+        <a href="#" class="flex-shrink-0">
+            <img src="../../../assets/images/logo.png" alt="logo" class="logo-image h-8">
+        </a>
+        <nav class="flex-grow items-center">
+            <ul class="flex justify-end space-x-6">
+                               <li class="nav-item">
+                    <a class="nav-link text-gray-600 hover:text-blue-400 text-sm px-2 py-2" href="/artists">Artists</a>
+                </li>
+                @if (isUserLoggedIn) {
+                    <li class="nav-item">
+                        <a class="nav-link  text-gray-600 hover:text-blue-400 text-sm px-2 py-2" href="/offers">Offers</a>
+                    </li>
+                }
+                @if(isUserLoggedIn && userRole == "CLIENT"){
+                    <li class="nav-item">
+                        <a class="nav-link  text-gray-600 hover:text-blue-400 text-sm px-2 py-2" href="/create-offer">Create Offer</a>
+                    </li>
+                }
+                @if (userRole == "ARTIST") {
+                    <li class="nav-item">
+                        <a class="nav-link  text-gray-600 hover:text-blue-400 text-sm px-2 py-2" href="/signed-up-offers">Signed-up Offers</a>
+                    </li>
+                }
+                @if(!isUserLoggedIn){
+                    <li class="nav-item">
+                        <a class="nav-link  text-gray-600 hover:text-blue-400 text-sm px-2 py-2" href="/login">Log in</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link  text-gray-600 hover:text-blue-400 text-sm px-2 py-2" href="/choose-role">Sign
+                            up</a>
+                    </li>
+                }
+                <li class="nav-item">
+                    <search></search>
+                </li>
+                @if(isUserLoggedIn){
+                <li class="nav-item">
+                    <a class="nav-link  text-gray-600 hover:text-blue-400 text-sm px-2 py-2"
+                        href="/#">{{getUsername()}}</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link  text-gray-600 hover:text-blue-400 text-sm px-2 py-2"
+                        (click)="logout()">Logout</a>
+                </li>
+                }
+            </ul>
+        </nav>
+    </div>
+</header>

@@ -1,0 +1,55 @@
+<!-- @if(pdfSrc){
+    <div class="min-w-80 h-full">
+        <ng2-pdfjs-viewer [pdfSrc]="pdfSrc" class="w-full h-full"></ng2-pdfjs-viewer>
+    </div>
+} @else {
+<p class="text-gray-700 text-xs italic">Submit a file to the client to view it.</p>
+} -->
+<!-- @for(category of offer.categories; track category){
+
+@for(file of ) -->
+
+<div class="max-w-lg shadow-lg rounded-lg overflow-hidden mb-6" *ngFor="let file of srcs">
+    <div class="flex justify-center items-center h-full p-1">
+        <h2 class="text-lg font-serif">Finished work</h2>
+    </div>
+    <ng-container *ngIf="file.url.endsWith('.pdf'); else imageBlock">
+        <div class="min-w-80 h-full mb-2 p-2">
+            <ng2-pdfjs-viewer [pdfSrc]="file.url" class="w-full h-full"></ng2-pdfjs-viewer>
+            <p class="text-gray-700 text-center text-xs italic mt-2">Submitted by: {{ file.artistUsername }}</p>
+        </div>
+    </ng-container>
+    
+    <!-- Block for images or other file types -->
+    <ng-template #imageBlock>
+        <div class="min-w-80 h-full mb-2 p-2">
+            <img *ngIf="file.url.endsWith('.jpg') || file.url.endsWith('.png') || file.url.endsWith('.jpeg')"
+                 [src]="file.url"
+                 alt="File preview"
+                 class="w-full h-auto mx-auto"/>
+            <p class="text-gray-700 text-center text-xs italic mt-2">Submitted by: {{ file.artistUsername }}</p>
+        </div>
+    </ng-template>
+</div>
+
+  
+<!-- <div class="max-w-4" *ngFor="let file of srcs">
+    <ng-container *ngIf="file.url.endsWith('.pdf'); else imageBlock">
+      <div class="min-w-80 h-full mb-2">
+        <ng2-pdfjs-viewer [pdfSrc]="'http://localhost:8080/storage/offer_content/10/10-1-offer-content.pdf'" class="w-full h-full"></ng2-pdfjs-viewer>
+        <p class="text-gray-700 text-xs italic">Submitted by: {{ file.artistUsername }}</p>
+      </div>
+    </ng-container>
+  
+    <ng-template #imageBlock>
+      <div class="min-w-80 h-full mb-2">
+        <img *ngIf="file.url.endsWith('.jpg') || file.url.endsWith('.png') || file.url.endsWith('.jpeg')"
+             [src]="file.url"
+             alt="File preview"
+             class="w-full h-auto"/>
+        <p class="text-gray-700 text-xs italic">Submitted by: {{ file.artistName }}</p>
+      </div>
+    </ng-template>
+  </div> -->
+
+  

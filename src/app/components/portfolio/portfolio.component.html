@@ -1,0 +1,21 @@
+<navigation></navigation>
+@if(portfolio){
+<div class="w-full flex flex-row justify-center mt-10">
+    <div>
+         <a href="/artists/{{artistId}}"
+        class="inline-block w-fit h-fit mr-2 rounded-lg px-4 py-2 text-gray-700 font-semibold text-sm border-blue-500 items-center">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1 hover:text-blue-500" viewBox="0 0 20 20" fill="gray">
+            <path fill-rule="evenodd" d="M3.293 9H16a1 1 0 0 1 0 2H3.293l3.146 3.146a1 1 0 1 1-1.414 1.414l-4-4a1 1 0 0 1 0-1.414l4-4a1 1 0 0 1 1.414 1.414L3.293 9z" clip-rule="evenodd" />
+        </svg> 
+    </a>
+    </div>
+    <div class="w-3/5 h-screen">
+        <ng2-pdfjs-viewer [pdfSrc]="portfolio.path" class="w-full h-full"></ng2-pdfjs-viewer>
+    </div>
+</div>
+
+
+} @else {
+<h2 class="w-fit mx-auto mt-32 text-red-500">Portfolio for artist does not exist</h2>
+
+}

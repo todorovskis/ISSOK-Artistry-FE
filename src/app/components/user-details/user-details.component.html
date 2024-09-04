@@ -1,0 +1,14 @@
+<p>user-details works!</p>
+
+<!-- <button (click)="getUserByUsername('john.smith')">Click me</button> -->
+
+<form enctype="multipart/form-data">
+    <input type="file" #fileInput style="display: none" (change)="fileChange($event)" accept=".pdf,.doc,.docx">
+    <button type="button" (click)="fileInput.click()">Choose File</button>
+  </form>
+  
+
+
+@if(user){
+<p>Username of user: {{user.username}}</p>
+}

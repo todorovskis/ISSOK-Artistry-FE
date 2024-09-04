@@ -1,0 +1,34 @@
+<div class="container" class="bg-slate-50">
+  <mat-stepper class="stepper" [linear]="true" #stepper>
+    <mat-step [stepControl]="artDetails1">
+      <form [formGroup]="artDetails1" class="art-form bg-slate-50">
+        <h5 class="form-title">Describe your idea and upload a photo along with your offer!</h5>
+        <div class="form-control">
+          <!-- <span class="form-label">Choose:</span> -->
+          <!-- <mat-radio-group formControlName="artDetailsCategories">
+            <mat-radio-button *ngFor="let category of categories; trackBy: trackByCategoryId" [value]="category.id" class="mat-list-option category-option">
+              {{ category.category }}
+            </mat-radio-button>
+          </mat-radio-group> -->
+          <!-- <span class="form-label">Describe your service:</span> -->
+          <input matInput formControlName="serviceDescription" placeholder="Describe the type of service you want..." class="service-description-input">
+          
+        </div>
+
+        <div class="button-group">
+          <!-- <button mat-raised-button color="primary" matStepperPrevious>Back</button> -->
+          <button mat-raised-button color="accent" [disabled]="isSubmitted" (click)="submitForm()">Create images</button>
+        </div>
+      </form>
+    </mat-step>
+  </mat-stepper>
+
+  <div *ngIf="images.length > 0">
+    <h2 class="image-title">Generated Images</h2>
+    <div class="image-grid">
+      <div *ngFor="let image of images" class="image-container" (click)="selectImage(image)">
+        <img [src]="image" alt="Generated Image" class="generated-image">
+      </div>
+    </div>
+  </div>
+</div>

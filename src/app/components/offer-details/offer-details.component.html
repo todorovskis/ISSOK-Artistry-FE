@@ -1,0 +1,166 @@
+<navigation></navigation>
+
+@if(offer){
+<div class="container mx-auto py-8">
+<div class="max-w-screen-lg mx-auto bg-white shadow-lg rounded px-8 py-6 flex flex-row">
+<div class="mr-10">
+
+
+<div class="mb-4">
+<div class="client-image flex items-center justify-between rounded-lg mb-3">
+<div class="flex items-center">
+<img src="{{ offer.clientProfilePicture }}" alt="Client Image"
+class="avatar object-cover w-10 h-10 rounded-full mr-2">
+<span class="text-sm text-gray-500">{{ offer.clientUsername }}</span>
+</div>
+<span class="text-sm text-gray-500">&nbsp; posted {{ offer.timeCreated }}</span>
+</div>
+
+<h2 class="text-xl font-semibold my-2">Title: {{ offer.title }}</h2>
+<p class="text-gray-700 mb-2">Description: {{ offer.description }}</p>
+<p class="text-gray-700 mb-2">Hourly pay: ${{ offer.price }}</p>
+
+<p class="text-gray-700 mb-2">Status:
+<span class="font-semibold" [ngClass]="{
+'text-orange-500': offer.status === 'PENDING',
+'text-green-500': offer.status === 'IN_PROGRESS',
+'text-blue-500': offer.status === 'COMPLETED'
+}">{{offer.status}}</span>
+</p>
+<p class="text-gray-700 mb-2">Mode: {{ offer.mode }} @if(offer.mode == 'TOURNAMENT') {<span class="text-sm font-sans text-gray-500">[All artists can compete to gain this offer]</span>}</p>
+
+<h3 class="text-lg font-semibold my-2">Categories:</h3>
+<ul class="mb-4">
+@for(category of offer.categories; track category){
+<li class="category inline-block mr-2 rounded-lg text-white text-sm bg-blue-500 px-2 py-1 mb-2">{{
+  category }}</li>
+}
+</ul>
+
+@if(offer.offerGeneratedImage){
+  <div class="flex flex-col items-center justify-center bg-white p-3 rounded-md shadow-lg">
+    <p class="text-blue-500 font-semibold mb-4">AI generated photo as reference:</p>
+    <div class=" rounded-md">
+        <img [src]="offer.offerGeneratedImage" alt="{{ offer.title }}" class="w-full h-auto" />
+    </div>
+</div>
+
+}
+
+
+@if(offer.status == "PENDING" && userRole=="CLIENT" && offer.clientUsername ==username){
+@if(offer.artistsSignedUp.length > 0){
+<h3 class="text-lg font-semibold my-2">Pick an artist:</h3>
+<form (ngSubmit)="onSubmit()" [formGroup]="artistsForm">
+<ul>
+@for(artist of offer.artistsSignedUp; track artist){
+<li class="mb-2">
+  <input type="radio" class="form-radio" formControlName="selectedArtist" [value]="artist.id"
+         (click)="handleRadioClick(artist)">
+  <span class="ml-2">{{ artist.name }}</span>
+</li>
+  }
+</ul>
+<button type="submit"
+class="bg-gray-600 hover:bg-gray-800 text-white font-normal py-2 px-4 rounded">Assign to
+artist</button>
+</form>
+} @else {
+<p class="text-sm italic">No artists have signed up to your offer yet.</p>
+}
+}
+
+
+@if(userRole=="CLIENT" && username==offer.clientUsername){
+@if(offer.status=="PENDING"){
+<a class="bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded mt-3" href="/offers/update/{{offer.id}}">Update</a>
+}
+@if(offer.status=="IN_PROGRESS"){
+<h2 class="text-md font-semibold my-2">You have assigned this offer.</h2>
+<button class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded mt-3" (click)="unassignOffer(offer.id)" type="submit">Unassign Offer</button>
+}
+@if(offer.status!="COMPLETED"){
+<button class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded mt-3" (click)="deleteOffer(offer.id)" type="submit">Delete</button>
+}
+@if(((offer && offer.contentLocations.length > 0 && offer.mode=='REGULAR') || (offer.mode=='TOURNAMENT' && offer.status == "COMPLETED")) && reviewLeft) {
+<form (ngSubmit)="onCompleteOffer()" [formGroup]="createReviewForm" class="max-w-fit mx-auto bg-white shadow-lg rounded px-4 py-4 flex flex-col">
+<div class="w-full flex flex-col md:flex-row">
+<div class="w-full md:w-1/2 p-8">
+<h2 class="mb-4 text-blue-500 font-semibold">Leave a review</h2>
+
+<div class="mb-4">
+<label for="title" class="block mb-2">Title:</label>
+<input type="text" id="title" formControlName="title" required
+class="block w-full px-4 py-2 rounded border border-gray-300 focus:outline-none focus:border-blue-500">
+</div>
+
+<div class="mb-4">
+<label for="review" class="block mb-2">Review:</label>
+<input type="text" id="review" formControlName="review" required
+class="block w-full px-4 py-2 rounded border border-gray-300 focus:outline-none focus:border-blue-500">
+</div>
+
+<div class="mb-4">
+<label for="grade" class="block mb-2">Grade:</label>
+<input type="text" id="grade" formControlName="grade" required
+class="block w-full px-4 py-2 rounded border border-gray-300 focus:outline-none focus:border-blue-500">
+</div>
+</div>
+</div>
+
+<div class="w-full md:w-1/2 px-8">
+<button type="submit"
+class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 focus:outline-none focus:bg-blue-600">Complete</button>
+</div>
+
+</form>
+}
+}
+
+@if(userRole == "ARTIST"){
+@if(offer.status == "PENDING"){
+@if(isCurrentArtistSignedUpOnOffer){
+<button
+  class="inline-block rounded-lg w-fit text-white text-sm mt-2 bg-red-400 hover:bg-gray-500 px-2 py-1"
+  (click)="removeArtistFromSignUp(offer.id)" type="submit">Remove Offer</button>
+}@else {
+<button class="bg-green-500 text-white px-4 py-2 rounded mt-3" (click)="signUpArtistToOffer(offer.id)" type="submit">Sign Up</button>
+}
+  }
+}
+<!-- !offer.contentLocations &&  -->
+
+@if(((offer.mode == 'TOURNAMENT' && isCurrentArtistSignedUpOnOffer) ||  (offer.mode == 'REGULAR' && isCurrentArtistWorkingOnOffer))){
+<form [formGroup]="offerContentForm" (submit)="onContentSubmit()"
+      class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+  <div class="mb-4">
+    <label class="block text-gray-700 text-sm font-bold mb-2" for="pdfFile">
+      Select PDF File
+    </label>
+    <input type="file" formControlName="contentFile" accept=".pdf" id="pdfFile"
+           (change)="onFileSelected($event)"
+           class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+  </div>
+  <div class="flex items-center justify-between">
+    <button type="submit" [disabled]="!selectedFile"
+            class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+            [class.opacity-50]="!selectedFile">
+      Upload
+    </button>
+    <span class="text-gray-700 text-xs italic">* PDF files only</span>
+  </div>
+</form>
+}
+
+</div>
+</div>
+@if(offer.clientUsername == username || (isCurrentArtistWorkingOnOffer && offer.mode==='REGULAR')){
+  <offer-content [offerContents]="offer.contentLocations"></offer-content>
+}
+@if(offer.status == "PENDING" && isCurrentArtistSignedUpOnOffer){
+<p class="text-gray-700 text-xs italic">You have signed up to this offer.</p>
+}
+</div>
+</div>
+
+}

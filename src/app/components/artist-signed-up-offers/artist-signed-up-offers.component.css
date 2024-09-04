@@ -1,0 +1,69 @@
+.container {
+    width: 70%;
+    display: flex;
+    margin: auto;
+    justify-content: space-between;
+}
+
+.all-offers-container {
+    width: 650px;
+}
+
+.custom-form {
+    display: inline-block;
+    border: 1px solid black;
+    padding: 10px;
+}
+
+.custom-form-group {
+    margin-bottom: 10px;
+}
+
+.custom-field-input {
+    background-color: red;
+}
+
+.custom-btn {
+    border-style: solid;
+    margin: 10px auto;
+    padding: 10px 20px;
+}
+
+.custom-container {
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 20px;
+    width: 650px;
+    display: flex;
+    flex-direction: column;
+    /* justify-content: space-between; */
+    height: fit-content;
+    margin: 10px auto;
+}
+
+.custom-text {
+    font-size: 11px;
+    margin-bottom: 10px;
+    color: rgb(96, 96, 96);
+}
+
+.title {
+    font-size: 20px;
+    font-weight: 600;
+    color: black;
+}
+
+.description {
+    font-size: 14px;
+}
+
+.category {
+    display: inline-block;
+    margin-right: 5px;
+    border-radius: 20px;
+    color: white;
+    font-size: 14px;
+    background-color: #2679c6;
+    padding: 5px 10px;
+    user-select: none;
+}

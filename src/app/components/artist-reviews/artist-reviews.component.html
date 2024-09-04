@@ -1,0 +1,20 @@
+@if(reviews.length > 0){
+<div class="bg-white flex flex-col p-2 mt-2">
+    <p class="block text-md font-medium text-end pt-2 border-t-gray-200 border-t-2">Reviews by clients</p>
+    @for(review of reviews; track review){
+    <div class="flex items-center justify-between border-b border-gray-200 py-4">
+        <div class="w-1/4 flex flex-col items-start space-y-2">
+            <img src="{{ review.clientProfilePicture }}" alt="{{ review.clientName }}" class="w-12 h-12 rounded-full">
+        </div>
+        <div class="w-3/4 text-right flex flex-col items-end">
+            <p class="text-xs text-gray-500 mb-1">Reviewed: {{ review.timeCreated }}</p>
+            <p class="bg-blue-600 text-white text-sm px-2 py-1 rounded-md mb-2">{{ review.grade }}</p>
+            <p class="block text-sm font-semibold">{{ review.title }}</p>
+            <p class="text-sm text-gray-700">{{ review.review }}</p>
+        </div>
+    </div>
+}
+</div>
+}@else{
+<p class="block text-sm font-medium text-end pt-2 border-t-gray-200 border-t-2">No reviews available.</p>
+}

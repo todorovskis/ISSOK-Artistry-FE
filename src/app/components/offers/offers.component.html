@@ -1,0 +1,130 @@
+<navigation></navigation>
+<div class="container mx-auto flex flex-col md:flex-row gap-8 px-32">
+
+    <div class="">
+        <form [formGroup]="priceForm" class="w-fit mt-4 border-gray-200 mb-4">
+
+            <div class="border-b border-gray-200 py-6">
+                <h3 class="font-medium text-sm text-gray-900">
+                    Price
+                </h3>
+                <div class="pt-6" id="filter-section-0">
+                    <div class="flex items-center">
+                        <label for="minPrice" class="ml-3 text-sm text-gray-600">Min Price:</label>
+                        <input id="minPrice" type="number" formControlName="minPrice"
+                            class="ml-2 p-2 border border-gray-300 rounded">
+                    </div>
+                    <div class="flex items-center">
+                        <label for="maxPrice" class="ml-3 text-sm text-gray-600">Max Price:</label>
+                        <input id="maxPrice" type="number" formControlName="maxPrice"
+                            class="ml-2 p-2 border border-gray-300 rounded">
+                    </div>
+                </div>
+            </div>
+        </form>
+        @if(userRole == "CLIENT"){
+        @if(myOffers){
+        <button
+            class="hyperlink  w-32 py-1 px-2 rounded-lg text-white font-medium bg-blue-500 hover:bg-blue-600 text-center   mb-auto"
+            (click)="getUserOffers(false)">View All Offers</button>
+
+
+        } @else{
+        <button
+            class="hyperlink w-32 py-1 px-2 rounded-lg text-white font-medium bg-blue-500 hover:bg-blue-600 text-center mb-auto"
+            (click)="getUserOffers(true)">View My
+            Offers</button>
+
+        }
+    }
+    </div>
+
+    @if(loading) {
+    <div class="w-full flex justify-center mt-12">
+        <progress-spinner></progress-spinner>
+    </div>
+    } @else {
+
+    @if(offers.length > 0){
+
+
+
+    @if(userRole == "CLIENT"){
+
+    <!--
+ <section class="artist-container w-full md:w-3/4 flex flex-wrap justify-center gap-3 p-20">
+        @if(loading) {
+            <progress-spinner></progress-spinner>
+        }
+        @else {
+
+        @if(artists.length > 0){
+        @for(artist of artists; track artist){
+        <div class="artist-box border border-gray-300 rounded-lg p-10 w-full flex flex-col h-fit justify-between">
+            <div class="artist-info text-end text-gray-600 text-sm font-semibold">
+        -->
+    <div class="all-offers-container w-full justify-center space-y-4 p-10">
+        @for(offer of offers; track offer) {
+        <div class="bg-white border p-4 px-20 rounded-md">
+            <div class="flex flex-col gap-3">
+                <div class="client-image flex items-center pr-4 justify-between rounded-lg ">
+                    <p class="text-xs text-gray-500">posted {{ offer.timeCreated }} by {{ offer.clientUsername }}</p>
+                    <img src="{{ offer.clientProfilePicture }}" alt="Client Image"
+                        class="avatar object-cover w-10 h-10 rounded-full">
+                </div>
+
+                <p class="font-semibold text-2xl">{{ offer.title }}</p>
+                <p>{{ offer.description }}</p>
+                <p class="font-normal text-green-600">Price offered: ${{ offer.price }}</p>
+                <div class="flex flex-wrap gap-2">
+                    @for(category of offer.categories; track category){
+                    <p class="category w-fit rounded-full mb-2 text-white text-sm bg-gray-400 px-2 py-1">{{ category }}
+                    </p>
+                    }
+                </div>
+                <a href="/offers/details/{{offer.id}}"
+                    class="hyperlink inline-block w-28 py-1 px-2 rounded-lg text-white text-sm font-normal bg-blue-600 hover:bg-blue-700 text-center mt-auto">View
+                    Details</a>
+            </div>
+        </div>
+
+        }
+    </div>
+
+    }@else if (userRole == "ARTIST"){
+
+
+    <div class="all-offers-container w-full justify-center space-y-4 p-10">
+        @for(offer of offers; track offer) {
+        <div class="border border-gray-300 rounded-lg p-6 w-full flex flex-col justify-between">
+            <div class="flex flex-col gap-3">
+                <div class="client-image flex items-center pr-4 justify-between rounded-lg ">
+                    <p class="text-xs text-gray-500">posted {{ offer.timeCreated }} by {{ offer.clientUsername }}</p>
+                    <img src="{{ offer.clientProfilePicture }}" alt="Client Image"
+                        class="avatar object-cover w-10 h-10 rounded-full">
+                </div>
+
+                <p class="font-semibold text-2xl">{{ offer.title }}</p>
+                <p>{{ offer.description }}</p>
+                <p class="font-normal text-green-600">Price offered: ${{ offer.price }}</p>
+                <div class="flex flex-wrap gap-2">
+                    @for(category of offer.categories; track category){
+                    <p class="category w-fit rounded-full mb-2 text-white text-sm bg-gray-400 px-2 py-1">{{ category }}
+                    </p>
+                    }
+                </div>
+                <a href="/offers/details/{{offer.id}}"
+                    class="hyperlink inline-block w-28 py-1 px-2 rounded-lg text-white text-sm font-normal bg-blue-600 hover:bg-blue-700 text-center mt-auto">View
+                    Details</a>
+            </div>
+        </div>
+        }
+    </div>
+    }
+    } @else {
+        <div class="w-full mx-auto">
+            <p>No offers available.</p>
+        </div>
+    }
+    }
+</div>

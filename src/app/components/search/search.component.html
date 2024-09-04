@@ -1,0 +1,19 @@
+<form (ngSubmit)="onSubmit()" [formGroup]="searchForm" method="GET" class="flex items-center rounded-sm py-2">
+  <div class="relative flex items-center">
+    <input type="text" formControlName="query" placeholder="Search..."
+      class="ml-1 px-1 py-0 bg-white text-sm rounded-lg shadow-md focus:outline-none focus:ring focus:border-blue-300">
+    <select formControlName="category"
+      class="ml-1 px-1 py-0 bg-white text-sm rounded-lg shadow-md focus:outline-none focus:ring focus:border-blue-300">
+      @if(isUserLoggedIn){
+      <option value="offers">Offers</option>
+      }
+      <option value="artists">Artists</option>
+    </select>
+  </div>
+  <button type="submit" class="ml-2 flex items-center">
+    <svg class="h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+        d="M15 15l4.844 4.844a2 2 0 01-2.719 2.718L12 17m-7-5a7 7 0 1114 0 7 7 0 01-14 0z" />
+    </svg>
+  </button>
+</form>

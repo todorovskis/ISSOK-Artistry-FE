@@ -1,0 +1,71 @@
+<navigation></navigation>
+<div class="container mx-auto mt-4">
+  <form (ngSubmit)="onSubmit()" [formGroup]="registrationForm"
+    class="max-w-md bg-white mt-4 mx-auto shadow-lg rounded px-8 pt-6 pb-8 mb-4">
+    <h2 class="text-xl mb-4 font-bold">Registration Form</h2>
+    <div class="mb-4">
+      <label class="block text-gray-700 text-sm font-bold mb-2" for="username">Username:</label>
+      <input type="text" id="username" formControlName="username" required
+        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+      <div [className]="isSubmitted && registrationForm.get('username')?.invalid ? 'block text-red-500' : 'hidden'">
+        Username is required.
+      </div>
+    </div>
+    <div class="mb-4">
+      <label class="block text-gray-700 text-sm font-bold mb-2" for="password">Password:</label>
+      <input type="password" id="password" formControlName="password" required
+        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+      <div [className]="isSubmitted && registrationForm.get('password')?.invalid ? 'block text-red-500' : 'hidden'">
+        Password is required.
+      </div>
+    </div>
+    <div class="mb-4">
+      <label class="block text-gray-700 text-sm font-bold mb-2" for="confirmPassword">Confirm Password:</label>
+      <input type="password" id="confirmPassword" formControlName="confirmPassword" required
+        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+      <div
+        [className]="isSubmitted && registrationForm.get('confirmPassword')?.invalid ? 'block text-red-500' : 'hidden'">
+        Password confirmation is required.
+      </div>
+      <div [className]="isSubmitted && !passwordsMatch ? 'block text-red-500' : 'hidden'">
+        Passwords do not match.
+      </div>
+    </div>
+    <div class="mb-4">
+      <label class="block text-gray-700 text-sm font-bold mb-2" for="name">Name:</label>
+      <input type="text" id="name" formControlName="name" required
+        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+      <div [className]="isSubmitted && registrationForm.get('name')?.invalid ? 'block text-red-500' : 'hidden'">
+        Name is required.
+      </div>
+    </div>
+    <div class="mb-4">
+      <label class="block text-gray-700 text-sm font-bold mb-2" for="country">Country:</label>
+      <select id="country" formControlName="country"
+        class="shadow-sm border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+        required>
+        @for(country of countries; track country){
+        <option [value]="country.country">{{ country.country }}</option>
+        }
+      </select>
+      <div [className]="isSubmitted && registrationForm.get('country')?.invalid ? 'block text-red-500' : 'hidden'">
+        Country is required.
+      </div>
+    </div>
+
+    <div class="mb-4">
+      <label for="profilePicture" class="block text-gray-700 font-bold mb-2">Profile Picture:</label>
+      <input formControlName="profilePicture" type="file" (change)="onProfilePictureChange($event)" accept="image/*" class="block w-full border rounded py-2 px-3">
+      <div [className]="isSubmitted && registrationForm.get('profilePicture')?.invalid ? 'block text-red-500' : 'hidden'">
+        Profile picture is required.
+      </div>
+    </div>
+    
+    <div class="mb-4">
+      <button type="submit"
+        class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+        Submit
+      </button>
+    </div>
+  </form>
+</div>

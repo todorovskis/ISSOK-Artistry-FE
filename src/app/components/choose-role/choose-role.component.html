@@ -1,0 +1,16 @@
+<navigation></navigation>
+<div class="flex justify-center items-center mt-32 h-fit">
+    <div class="container mx-auto p-20 shadow-lg w-fit">
+        <h2 class="u-font-playfair-display text-2xl font-normal mb-4">PICK A ROLE</h2>
+        <div class="grid grid-cols-2 gap-4">
+            <div class="role-box text-center p-4 cursor-pointer transition-colors duration-300 ease-in-out hover:bg-gray-200" (click)="redirectToRegistration('client')">
+                <div class="role-box-icon text-3xl mb-2">👤</div>
+                <div class="role-name text-xl u-font-playfair-display">CLIENT</div>
+            </div>
+            <div class="role-box text-center p-4 cursor-pointer transition-colors duration-300 ease-in-out hover:bg-gray-200" (click)="redirectToRegistration('artist')">
+                <div class="role-box-icon text-3xl mb-2">🎨</div>
+                <div class="role-name text-xl u-font-playfair-display">ARTIST</div>
+            </div>
+        </div>
+    </div>
+</div>

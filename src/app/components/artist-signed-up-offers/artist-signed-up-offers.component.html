@@ -1,0 +1,111 @@
+<navigation></navigation>
+<div class="flex justify-between w-4/5 mx-auto mt-5">
+  <div class="w-full md:w-1/2">
+    <h2 class="text-xl font-semibold mb-4">PENDING</h2>
+    @if(signedUpOffers.length > 0){ @for (offer of signedUpOffers; track offer)
+    {
+    <div class="border border-gray-300 rounded-lg p-4 my-6">
+      <div class="p-4">
+        <p class="text-sm mb-2">
+          Posted {{ offer.timeCreated }} by {{ offer.clientUsername }}
+        </p>
+        <p class="text-lg font-semibold">{{ offer.title }}</p>
+        <p class="text-sm">{{ offer.description }}</p>
+        <p class="text-sm">Price offered: ${{ offer.price }}</p>
+        <div class="mt-2">
+          @for(category of offer.categories; track category){
+          <p
+            class="inline-block mr-2 rounded-lg text-white text-sm bg-blue-500 px-2 py-1"
+          >
+            {{ category }}
+          </p>
+          }
+        </div>
+        <a
+          href="/offers/details/{{ offer.id }}"
+          class="inline-block mr-2 rounded-lg w-fit text-white text-sm mt-2 bg-gray-400 hover:bg-gray-500 px-2 py-1"
+          >View Details</a
+        >
+
+        <button
+          class="inline-block rounded-lg w-fit text-white text-sm mt-2 bg-red-400 hover:bg-gray-500 px-2 py-1"
+          (click)="removeArtistFromSignUp(offer.id)"
+          type="submit"
+        >
+          Remove Offer
+        </button>
+      </div>
+    </div>
+    } }@else {
+    <p class="text-md font-normal my-2 italic">
+      You have not applied for any offers.
+    </p>
+    }
+  </div>
+  <div class="w-full mr-3 md:w-1/2">
+    <h2 class="text-xl font-semibold mb-4">WORKING ON</h2>
+    @if(workingOnOffers.length>0){ @for (offer of workingOnOffers; track offer)
+    {
+    <div class="border border-gray-300 rounded-lg p-4 my-6">
+      <div class="p-4">
+        <p class="text-sm mb-2">Posted {{ offer.timeCreated }}</p>
+        <p class="text-lg font-semibold">{{ offer.title }}</p>
+        <p class="text-sm">{{ offer.description }}</p>
+        <p class="text-sm">${{ offer.price }}/hr</p>
+        <div class="mt-2">
+          @for(category of offer.categories; track category){
+          <p
+            class="inline-block mr-2 rounded-lg text-white text-sm bg-blue-500 px-2 py-1"
+          >
+            {{ category }}
+          </p>
+          }
+        </div>
+        <a
+          href="/offers/details/{{ offer.id }}"
+          class="block rounded-lg w-fit text-white text-sm mt-2 bg-gray-400 hover:bg-gray-500 px-2 py-1"
+          >View Details</a
+        >
+      </div>
+    </div>
+    } }@else{
+    <p class="text-md font-normal my-2 italic">
+      You are currently not working on any offers.
+    </p>
+    }
+  </div>
+  <div class="w-full md:w-1/2">
+    <h2 class="text-xl font-semibold mb-4">COMPLETED</h2>
+    @if(completedOffers.length > 0){ @for (offer of completedOffers; track
+    offer) {
+    <div class="border border-gray-300 rounded-lg p-4 my-6">
+      <div class="p-4">
+        <p class="text-sm mb-2">
+          Posted {{ offer.timeCreated }} by {{ offer.clientUsername }}
+        </p>
+        <p class="text-lg font-semibold">{{ offer.title }}</p>
+        <p class="text-sm">{{ offer.description }}</p>
+        <p class="text-sm">Price offered: ${{ offer.price }}</p>
+        <div class="mt-2">
+          @for(category of offer.categories; track category){
+          <p
+            class="inline-block mr-2 rounded-lg text-white text-sm bg-blue-500 px-2 py-1"
+          >
+            {{ category }}
+          </p>
+          }
+        </div>
+        <a
+          href="/offers/details/{{ offer.id }}"
+          class="inline-block mr-2 rounded-lg w-fit text-white text-sm mt-2 bg-gray-400 hover:bg-gray-500 px-2 py-1"
+          >View Details</a
+        >
+      </div>
+    </div>
+    } }@else {
+    <p class="text-md font-normal my-2 italic">
+      You have not completed any offers.
+    </p>
+    }
+  </div>
+</div>

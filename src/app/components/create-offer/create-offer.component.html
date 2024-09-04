@@ -1,0 +1,79 @@
+<navigation class="navigation"></navigation>
+<div class="container mx-auto py-2 mt-3">
+  <form (ngSubmit)="onSubmit()" [formGroup]="createOfferForm"
+    class="max-w-fit mx-auto bg-white shadow-lg rounded px-4 py-4 flex flex-col">
+    <div class="w-full flex flex-col md:flex-row">
+      <div class="w-full md:w-1/2 p-8">
+        <h2 class="mb-4 text-blue-500 font-semibold">Create Offer Form</h2>
+
+        <div class="mb-4">
+          <label for="title" class="block mb-2">Title:</label>
+          <input type="text" id="title" formControlName="title" required
+            class="block w-full px-4 py-2 rounded border border-gray-300 focus:outline-none focus:border-blue-500">
+            <div [className]="isSubmitted && createOfferForm.get('title')?.invalid ? 'block text-red-500' : 'hidden'">
+              Title is required.
+          </div>
+          </div>
+    
+
+        <div class="mb-4">
+          <label for="description" class="block mb-2">Description:</label>
+          <input type="text" id="description" formControlName="description" required
+            class="block w-full px-4 py-2 rounded border border-gray-300 focus:outline-none focus:border-blue-500">
+            <div [className]="isSubmitted && createOfferForm.get('description')?.invalid ? 'block text-red-500' : 'hidden'">
+              Description is required.
+          </div>
+          </div>
+<!-- || registrationForm.get('hourlyRate')?.errors?.max -->
+        <div class="mb-4">
+          <label for="price" class="block mb-2">Price:</label>
+          <input type="text" id="price" formControlName="price" required
+            class="block w-full px-4 py-2 rounded border border-gray-300 focus:outline-none focus:border-blue-500">
+            <div [className]="isSubmitted && createOfferForm.get('price')?.invalid 
+            || createOfferForm.get('price')?.errors?.max ? 'block text-red-500' : 'hidden'">
+              Price missing or higher than 500USD.
+          </div>
+          </div>
+
+          <div class="mb-4">
+            <label for="tournament" class="block mb-2">Tournament mode:</label>
+            <input type="checkbox" id="tournament" formControlName="tournament" 
+              class="block w-fit px-4 py-2 rounded border border-gray-300 focus:outline-none focus:border-blue-500">
+              <!-- <div [className]="isSubmitted && createOfferForm.get('price')?.invalid 
+              || createOfferForm.get('price')?.errors?.max ? 'block text-red-500' : 'hidden'">
+                Price missing or higher than 500USD.
+            </div> -->
+            </div>
+      </div>
+
+      <div class="w-full md:w-1/2 p-4">
+        <div class="mb-4 flex flex-col justify-between ">
+          <label class="mb-2">Categories:</label>
+          <div class="ml-2">
+            @for(category of categories; track category){
+            <label class="block mb-2">
+              <input type="checkbox" (change)="onChange(category.category)" [value]="category.category"
+                formControlName="categories" required>
+              <span>{{ category.category }}</span>
+            </label>
+            }
+          </div>
+        </div>
+        <div [className]="isSubmitted && createOfferForm.get('categories')?.invalid ? 'block text-red-500' : 'hidden'">
+          Category is required.
+        </div>
+      </div>
+    </div>
+
+    <image-generator (imageSelected)="handleImageSelection($event)"></image-generator>
+
+    <div class="w-full md:w-1/2 px-8">
+      <button type="submit"
+        class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 focus:outline-none focus:bg-blue-600">Submit</button>
+    </div>
+
+  </form>
+  <!-- <image-drawing [src]="imageUrl" outputMimeType="'image/jpeg'" outputQuality="0.8" (save)="save($event)"
+    (cancel)="cancel()">
+  </image-drawing> -->
+</div>

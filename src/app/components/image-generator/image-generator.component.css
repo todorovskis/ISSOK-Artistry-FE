@@ -1,0 +1,89 @@
+/* Container styling */
+.container {
+  background-color: rgb(244, 244, 244); /* Blue background for the container */
+  color: black;            /* Black text color */
+  padding: 10px; 
+  margin-top: 10px;          /* Add some padding */
+  border-radius: 8px;      /* Optional: rounded corners */
+}
+
+/* Stepper styling */
+.stepper {
+  background: inherit;    /* Inherit background from container */
+  color: inherit;         /* Inherit text color from container */
+}
+
+/* Form styling */
+.art-form {
+  color: inherit;         /* Inherit text color from container */
+  padding: 20px;          /* Add padding */
+  border-radius: 8px;     /* Optional: rounded corners */
+  box-shadow: 0 2px 4px rgba(57, 85, 245, 0.1); /* Optional: shadow effect */
+}
+
+/* Title styling */
+.form-title {
+  font-size: 20px;        /* Adjust font size */
+  margin-bottom: 16px;    /* Space below title */
+}
+
+.image-title {
+  font-size: 20px;        /* Adjust font size */
+  margin-bottom: 16px;    /* Space below title */
+}
+
+/* Form control styling */
+.form-control {
+  margin-bottom: 20px;    /* Space below form control */
+}
+
+.form-label {
+  font-weight: bold;      /* Make label text bold */
+  display: block;         /* Make label take full width */
+}
+
+/* Button group styling */
+.button-group {
+  margin-top: 20px;       /* Space above button group */
+}
+
+/* Submit button styling */
+button[mat-raised-button][color="accent"] {
+  background-color: rgb(235, 142, 158);  /* Red background for the submit button */
+  color: white;           /* White text color for the button */
+}
+
+/* Image grid styling */
+.image-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;              /* Space between images */
+}
+
+.image-container {
+  width: 100px;           /* Fixed width for image container */
+  height: 100px;          /* Fixed height for image container */
+  overflow: hidden;       /* Hide overflow */
+  border: 1px solid #ddd; /* Border around images */
+  border-radius: 8px;    /* Optional: rounded corners */
+}
+
+.generated-image {
+  width: 100%;            /* Make image fill container */
+  height: 100%;           /* Make image fill container */
+  object-fit: cover;      /* Ensure image covers container */
+}
+.service-description-input {
+  width: 100%;
+  height: 150px; /* Adjust the height as needed */
+  padding: 10px;
+  font-size: 16px; /* Adjust the font size as needed */
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  resize: vertical; /* Allows vertical resizing if needed */
+}
+
+.service-description-input::placeholder {
+  color: #888;
+}
